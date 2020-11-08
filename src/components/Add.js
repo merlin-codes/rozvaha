@@ -1,10 +1,12 @@
 import React,{useState,useEffect} from 'react';
 
 const Add = ({item, setItem}) => {
-    const [selectType, setSelectType] = useState("dm.budova");
+    const [selectType, setSelectType] = useState("dm.hmotne");
     const [amout, setAmout] = useState(0);
-    const [detail, setDetail] = useState("budova");
+    const [detail, setDetail] = useState("");
     const [error, setError] = useState("no problem");
+    const [info, setInfo] = useState("");
+    const [showHelp, setShowHelp] = useState(false)
 
     useEffect(()=>{
         if(detail === "" && (amout === "" || parseInt(amout) === 0 || isNaN(parseInt(amout)))){
@@ -18,7 +20,39 @@ const Add = ({item, setItem}) => {
         }
         
     }, [detail, amout])
-    
+    useEffect(()=>{
+        if(showHelp){
+            if(selectType.includes("dm")){
+                if(selectType.includes("nehmotne")){
+                    setInfo("Sem patří: Patenty, licence, software, delší jak rok a 60k");
+                }else if(selectType.includes("hmotne")){
+                    setInfo("Sem patří: Budovy, Pozemky, předměty za 40k a využitím více jak rok");
+                }else{
+                    setInfo("Sem patří: Akcie, dluhopisy nebo cenné papíry rok a více");
+                }
+            }else if(selectType.includes("km")){
+                if(selectType.includes("penize")){
+                    setInfo("Sem patří: Pokladna, ceniny, bankovní účty");
+                }else if(selectType.includes("pohledavky")){
+                    setInfo("Sem patří: Odběratelé, poskytnuté zálohy dodavatelům");
+                }else{
+                    setInfo("Sem patří: Material, zboží a výrobky");
+                }
+            }else if(selectType.includes("vz")){
+                if(selectType.includes("hv")){
+                    setInfo("Sem patří: Výsledek hospodaření");
+                }
+            }else if(selectType.includes("cz")){
+                if(selectType.includes("zavazky")){
+                    setInfo("Sem patří: Závazky vůči dodavatelům, zaměstnancům nebo (Fin. Úřadu, Socialní a Zdravotní)");
+                }else{
+                    setInfo("Sem patří: Hypoteka, investiční atd.");
+                }
+            }
+        }else{
+            setInfo("");
+        }
+    }, [selectType, showHelp])
     const addItem = (e) => {
         e.preventDefault();
         if (error === "no problem") {
@@ -35,28 +69,33 @@ const Add = ({item, setItem}) => {
             <select className="p-1 rounded" value={selectType} onChange={(e)=>{setSelectType(e.target.value)}}>
                 {/* podkategorie */}
                 {/* dlouhodoby majetek = dm */}
-                <option className="bg-secondary" value="dm.budova">Budova</option>
-                <option className="bg-secondary" value="dm.stroj">Stroj</option>
-                <option className="bg-secondary" value="dm.soft">Software</option>
+                <option className="bg-secondary" value="dm.hmotne">Predmety</option>
+                <option className="bg-secondary" value="dm.nehmotne">Licence</option>
+                <option className="bg-secondary" value="dm.financni">Cenniny</option>
                 {/* kratkodoby majetek = km */}
-                <option className="bg-success" value="km.z">Zasoby</option>
-                <option className="bg-success" value="km.b-ucet">Bankovni ucet</option>
-                <option className="bg-success" value="km.pp">Penize v pokladne</option>
-                <option className="bg-success" value="km.o">Zakaznici</option>
-                <option className="bg-success" value="km.p">Pohledavky</option>
+                <option className="bg-success" value="km.penize">Zasoby</option>
+                <option className="bg-success" value="km.pohledavky">Bankovni ucet</option>
+                <option className="bg-success" value="km.zasoby">Penize v pokladne</option>
                 {/* vlastni zdroje = vz */}
                 <option value="vz.hv">Hospodarsky vysledek</option>
-
                 {/* cizi zdroje = cz */}
-                <option className="bg-danger" value="cz.bu">bankovni uver</option>
-                <option className="bg-danger" value="cz.dane">Dane - Financi urad</option>
-                <option className="bg-danger" value="cz.d">dluzne</option>
+                <option className="bg-danger" value="cz.zavazky">Ostatní závazky</option>
+                <option className="bg-danger" value="cz.uvery">Uvěry</option>
             </select>
-            <input className="rounded" type="text" placeholder="details" value={detail} onChange={(e)=>(setDetail(e.target.value))} />
+            <input className="rounded" type="text" placeholder="Nazev, který se zobrazí" value={detail} onChange={(e)=>(setDetail(e.target.value))} />
             <input min='0' className="rounded" type="number" placeholder="Enter amout" value={amout} onChange={(e)=>{setAmout(e.target.value)}} />
             <button className="rounded" type="submit" onClick={addItem}>přidat</button>
         </form>
-        <p>{error}</p>
+        <div className="preview pt-3">
+            <p className="text-center">
+                chyba: {error} 
+                <span className="custom-control custom-checkbox">
+                    <input id="showHelp" type="checkbox" class="custom-control-input" onChange={(e)=>{setShowHelp(!showHelp)}} value={showHelp} />
+                    <label htmlFor="showHelp" class="custom-control-label">show help</label>
+                </span>
+            </p>
+            <p>{info}</p>
+        </div>
     </div>
     );
 }
