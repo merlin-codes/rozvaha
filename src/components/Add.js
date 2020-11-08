@@ -10,11 +10,11 @@ const Add = ({item, setItem}) => {
 
     useEffect(()=>{
         if(detail === "" && (amout === "" || parseInt(amout) === 0 || isNaN(parseInt(amout)))){
-            setError("Musíte vyplnit detail a zadat vyšší částku.")
+            setError("Musíte vyplnit název a zadat vyšší částku.")
         }else if(detail === ""){
-            setError("Zadejte detaily.")
+            setError("Nezadali jste název.")
         }else if(amout === undefined || parseInt(amout) === 0 || isNaN(parseInt(amout))){
-            setError("Boužel zde musí být nějaká částka.")
+            setError("Boužel zde musí být částka výšší jak nula.")
         }else{
             setError("no problem")
         }
@@ -65,38 +65,38 @@ const Add = ({item, setItem}) => {
     return (
         <div>
             <form>
-            {/* pridat moznost generovani listu pomoci pole */}
-            <select className="p-1 rounded" value={selectType} onChange={(e)=>{setSelectType(e.target.value)}}>
-                {/* podkategorie */}
-                {/* dlouhodoby majetek = dm */}
-                <option className="bg-secondary" value="dm.hmotne">Predmety</option>
-                <option className="bg-secondary" value="dm.nehmotne">Licence</option>
-                <option className="bg-secondary" value="dm.financni">Cenniny</option>
-                {/* kratkodoby majetek = km */}
-                <option className="bg-success" value="km.penize">Zasoby</option>
-                <option className="bg-success" value="km.pohledavky">Bankovni ucet</option>
-                <option className="bg-success" value="km.zasoby">Penize v pokladne</option>
-                {/* vlastni zdroje = vz */}
-                <option value="vz.hv">Hospodarsky vysledek</option>
-                {/* cizi zdroje = cz */}
-                <option className="bg-danger" value="cz.zavazky">Ostatní závazky</option>
-                <option className="bg-danger" value="cz.uvery">Uvěry</option>
-            </select>
-            <input className="rounded" type="text" placeholder="Nazev, který se zobrazí" value={detail} onChange={(e)=>(setDetail(e.target.value))} />
-            <input min='0' className="rounded" type="number" placeholder="Enter amout" value={amout} onChange={(e)=>{setAmout(e.target.value)}} />
-            <button className="rounded" type="submit" onClick={addItem}>přidat</button>
-        </form>
-        <div className="preview pt-3">
-            <p className="text-center">
-                chyba: {error} 
-                <span className="custom-control custom-checkbox">
-                    <input id="showHelp" type="checkbox" class="custom-control-input" onChange={(e)=>{setShowHelp(!showHelp)}} value={showHelp} />
-                    <label htmlFor="showHelp" class="custom-control-label">show help</label>
-                </span>
-            </p>
-            <p>{info}</p>
+                {/* pridat moznost generovani listu pomoci pole */}
+                <select className="p-1 rounded" value={selectType} onChange={(e)=>{setSelectType(e.target.value)}}>
+                    {/* podkategorie */}
+                    {/* dlouhodoby majetek = dm */}
+                    <option className="bg-secondary" value="dm.hmotne">Predmety</option>
+                    <option className="bg-secondary" value="dm.nehmotne">Licence</option>
+                    <option className="bg-secondary" value="dm.financni">Cenniny</option>
+                    {/* kratkodoby majetek = km */}
+                    <option className="bg-success" value="km.penize">Zasoby</option>
+                    <option className="bg-success" value="km.pohledavky">Bankovni ucet</option>
+                    <option className="bg-success" value="km.zasoby">Penize v pokladne</option>
+                    {/* vlastni zdroje = vz */}
+                    <option value="vz.hv">Hospodarsky vysledek</option>
+                    {/* cizi zdroje = cz */}
+                    <option className="bg-danger" value="cz.zavazky">Ostatní závazky</option>
+                    <option className="bg-danger" value="cz.uvery">Uvěry</option>
+                </select>
+                <input className="rounded" type="text" placeholder="Nazev, který se zobrazí" value={detail} onChange={(e)=>(setDetail(e.target.value))} />
+                <input min='0' className="rounded" type="number" placeholder="Enter amout" value={amout} onChange={(e)=>{setAmout(e.target.value)}} />
+                <button className="rounded" type="submit" onClick={addItem}>přidat</button>
+            </form>
+            <div className="preview pt-3">
+                <p className="text-center">
+                    chyba: {error} 
+                    <span className="custom-control custom-checkbox">
+                        <input id="showHelp" type="checkbox" class="custom-control-input" onChange={(e)=>{setShowHelp(!showHelp)}} value={showHelp} />
+                        <label htmlFor="showHelp" class="custom-control-label">show help</label>
+                    </span>
+                </p>
+                <p>{info}</p>
+            </div>
         </div>
-    </div>
     );
 }
 
