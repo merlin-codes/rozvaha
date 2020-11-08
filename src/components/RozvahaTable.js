@@ -51,7 +51,7 @@ const RozvahaTable = ({setItem, item}) => {
                             {item.filter(element => element.subtype === "pohledavky").map(element => {
                                 return <Item item={item} element={element} setItem={setItem} />
                             })}
-                            {item.filter(element => element.subtype === "zasoby").map(element => {
+                            {item.filter(element => element.subtype === "financni").map(element => {
                                 return <Item item={item} element={element} setItem={setItem} />
                             })}
                         </div>

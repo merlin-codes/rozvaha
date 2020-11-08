@@ -32,7 +32,7 @@ const Add = ({item, setItem}) => {
                     setInfo("Sem patří: Akcie, dluhopisy nebo cenné papíry rok a více");
                 }
             }else if(selectType.includes("km")){
-                if(selectType.includes("penize")){
+                if(selectType.includes("zasoby")){
                     setInfo("Sem patří: Pokladna, ceniny, bankovní účty");
                 }else if(selectType.includes("pohledavky")){
                     setInfo("Sem patří: Odběratelé, poskytnuté zálohy dodavatelům");
@@ -74,9 +74,9 @@ const Add = ({item, setItem}) => {
                     <option className="bg-secondary" value="dm.nehmotne">Licence</option>
                     <option className="bg-secondary" value="dm.financni">Cenniny</option>
                     {/* kratkodoby majetek = km */}
-                    <option className="bg-success" value="km.penize">Zasoby</option>
-                    <option className="bg-success" value="km.pohledavky">Bankovni ucet</option>
-                    <option className="bg-success" value="km.zasoby">Penize v pokladne</option>
+                    <option className="bg-success" value="km.zasoby">Zasoby</option>
+                    <option className="bg-success" value="km.pohledavky">Pohledavky</option>
+                    <option className="bg-success" value="km.financi">Finanční</option>
                     {/* vlastni zdroje = vz */}
                     <option value="vz.hv">Hospodarsky vysledek</option>
                     {/* cizi zdroje = cz */}
