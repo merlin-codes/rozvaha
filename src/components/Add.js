@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react';
+import nextId from "react-id-generator";
 
 const Add = ({item, setItem}) => {
     const [selectType, setSelectType] = useState("dm.hmotne");
@@ -58,7 +59,7 @@ const Add = ({item, setItem}) => {
         if (error === "no problem") {
             const types = selectType.split(".");
             setItem([
-                ...item, {id: Math.random()*1000, type: types[0], subtype: types[1], detail: detail, cash: parseInt(amout)}
+                ...item, {id: nextId(), type: types[0], subtype: types[1], detail: detail, cash: parseInt(amout)}
             ])
         }
     }
@@ -90,8 +91,8 @@ const Add = ({item, setItem}) => {
                 <p className="text-center">
                     chyba: {error} 
                     <span className="custom-control custom-checkbox">
-                        <input id="showHelp" type="checkbox" class="custom-control-input" onChange={(e)=>{setShowHelp(!showHelp)}} value={showHelp} />
-                        <label htmlFor="showHelp" class="custom-control-label">show help</label>
+                        <input id="showHelp" type="checkbox" className="custom-control-input" onChange={(e)=>{setShowHelp(!showHelp)}} value={showHelp} />
+                        <label htmlFor="showHelp" className="custom-control-label">show help</label>
                     </span>
                 </p>
                 <p>{info}</p>
