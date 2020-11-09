@@ -14,7 +14,7 @@ function App() {
   },[item])
   return (
     <div className="App container pt-5">
-      <h1>Jen rozvaha. - <a href="https://github.com/MiloslavStekrt/rozvaha" target="_blank" rel="noreferrer">Code</a></h1>
+      <h1 className="text-white-50">Jen rozvaha. <a href="https://github.com/MiloslavStekrt/rozvaha" target="_blank" rel="noreferrer" className="btn btn-primary">Code</a></h1>
       <RozvahaTable setItem={setItem} item={item} />
       <Add item={item} setItem={setItem} />
     </div>
