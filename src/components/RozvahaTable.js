@@ -66,6 +66,9 @@ const RozvahaTable = ({setItem, item}) => {
                             {item.filter(element => element.subtype === "hv").map(element => {
                                 return <Item item={item} element={element} setItem={setItem} />
                             })}
+                            {item.filter(element => element.subtype === "fond").map(element => {
+                                return <Item item={item} element={element} setItem={setItem} />
+                            })}
                         </div>
                     </div>
                     <div className="pb-1 pt-3 mt-3 rounded text-white bg-danger">

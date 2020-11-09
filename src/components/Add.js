@@ -33,15 +33,17 @@ const Add = ({item, setItem}) => {
                 }
             }else if(selectType.includes("km")){
                 if(selectType.includes("zasoby")){
-                    setInfo("Sem patří: Pokladna, ceniny, bankovní účty");
+                    setInfo("Sem patří: Material, zboží a výrobky");
                 }else if(selectType.includes("pohledavky")){
                     setInfo("Sem patří: Odběratelé, poskytnuté zálohy dodavatelům");
                 }else{
-                    setInfo("Sem patří: Material, zboží a výrobky");
+                    setInfo("Sem patří: Pokladna, ceniny, bankovní účty");
                 }
             }else if(selectType.includes("vz")){
                 if(selectType.includes("hv")){
                     setInfo("Sem patří: Výsledek hospodaření");
+                }else if(selectType.includes("fond")){
+                    setInfo("Sem patří: Fondy a tak dále.");
                 }
             }else if(selectType.includes("cz")){
                 if(selectType.includes("zavazky")){
@@ -79,6 +81,7 @@ const Add = ({item, setItem}) => {
                     <option className="bg-success" value="km.financi">Finanční</option>
                     {/* vlastni zdroje = vz */}
                     <option value="vz.hv">Hospodarsky vysledek</option>
+                    <option value="vz.fond">Fondy</option>
                     {/* cizi zdroje = cz */}
                     <option className="bg-danger" value="cz.zavazky">Ostatní závazky</option>
                     <option className="bg-danger" value="cz.uvery">Uvěry</option>
