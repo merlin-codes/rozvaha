@@ -72,9 +72,9 @@ const Add = ({item, setItem}) => {
                 <select className="p-1 rounded" value={selectType} onChange={(e)=>{setSelectType(e.target.value)}}>
                     {/* podkategorie */}
                     {/* dlouhodoby majetek = dm */}
-                    <option className="bg-secondary" value="dm.hmotne">Predmety</option>
+                    <option className="bg-secondary" value="dm.hmotne">Predmet</option>
                     <option className="bg-secondary" value="dm.nehmotne">Licence</option>
-                    <option className="bg-secondary" value="dm.financni">Cenniny</option>
+                    <option className="bg-secondary" value="dm.cenniny">Cenniny</option>
                     {/* kratkodoby majetek = km */}
                     <option className="bg-success" value="km.zasoby">Zasoby</option>
                     <option className="bg-success" value="km.pohledavky">Pohledavky</option>
@@ -93,7 +93,7 @@ const Add = ({item, setItem}) => {
             <div className="preview pt-3">
                 <p className="text-center">
                     chyba: {error} 
-                    <span className="custom-control custom-checkbox">
+                    <span className="custom-control custom-checkbox btn text-white-50">
                         <input id="showHelp" type="checkbox" className="custom-control-input" onChange={(e)=>{setShowHelp(!showHelp)}} value={showHelp} />
                         <label htmlFor="showHelp" className="custom-control-label">show help</label>
                     </span>

@@ -35,7 +35,7 @@ const RozvahaTable = ({setItem, item}) => {
                             {item.filter(element => element.subtype === "nehmotne").map(element => {
                                 return <Item item={item} element={element} setItem={setItem} />
                             })}
-                            {item.filter(element => element.subtype === "financni").map(element => {
+                            {item.filter(element => element.subtype === "cenniny").map(element => {
                                 return <Item item={item} element={element} setItem={setItem} />
                             })}
                         </div>
@@ -45,13 +45,13 @@ const RozvahaTable = ({setItem, item}) => {
                             <p>Oběžný majetek</p>
                         </span>
                         <div className="col flex-fill">
-                            {item.filter(element => element.subtype === "penize").map(element => {
+                            {item.filter(element => element.subtype === "zasoby").map(element => {
                                 return <Item item={item} element={element} setItem={setItem} />
                             })}
                             {item.filter(element => element.subtype === "pohledavky").map(element => {
                                 return <Item item={item} element={element} setItem={setItem} />
                             })}
-                            {item.filter(element => element.subtype === "financni").map(element => {
+                            {item.filter(element => element.subtype === "financi").map(element => {
                                 return <Item item={item} element={element} setItem={setItem} />
                             })}
                         </div>
