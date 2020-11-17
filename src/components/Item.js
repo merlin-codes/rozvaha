@@ -13,7 +13,7 @@ const Item = ({element, setItem, item}) => {
             <p className="font-weight-bold">{element.detail.charAt(0).toUpperCase() + element.detail.slice(1)}</p>
             <p>
                 <span className="pr-2">{element.cash.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span>
-                <button className="btn btn-danger" onClick={deleteItem}>X</button>
+                <button className="btn btn-danger" value={element.id} onClick={deleteItem}>X</button>
             </p>
         </span>
     );

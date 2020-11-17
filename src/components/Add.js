@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import nextId from "react-id-generator";
+import './Add.css';
 
 const Add = ({item, setItem}) => {
     const [selectType, setSelectType] = useState("dm.hmotne");
@@ -56,12 +56,39 @@ const Add = ({item, setItem}) => {
             setInfo("");
         }
     }, [selectType, showHelp])
+    useEffect(()=>{
+        if(detail.length <= 5){
+            if(detail.includes("akci") || detail.includes("dluh") || detail.includes("cenn") || detail.includes("pap")){
+                setSelectType("")
+            }else if(detail.includes("pohl")){
+                setSelectType("km.pohledavky");
+            }else if(detail.includes("soft") || detail.includes("lice")){
+                setSelectType("dm.nehmotne");
+            }else if(detail.includes("mate") || detail.includes("zaso") || detail.includes("vyro") || detail.includes("výro")){
+                setSelectType("km.zasoby");
+            }else if(detail.includes("pokladna") || detail.includes("ucty") || detail.includes("bankovni")){
+                setSelectType("km.financi");
+            }else if(detail.includes("vysledek") || detail.includes("hospodareni") || detail.includes("výsledek") || detail.includes("hospodařeni")){
+                setSelectType("vz.hv");
+            }else if(detail.includes("fond")){
+                setSelectType("vz.fond");
+            }else if(detail.includes("zava") || detail.includes("záva")){
+                setSelectType("cz.zavazky");
+            }else if(detail.includes("uver") || detail.includes("úvěr")){
+                setSelectType("cz.zavazky");
+            }else if(detail.includes("budo") || detail.includes("poze") || amout >= 40000){
+                setSelectType("dm.hmotne");
+            }else if(amout < 40000){
+                setSelectType("km.zasoby");
+            }
+        }
+    }, [detail, amout])
     const addItem = (e) => {
-        e.preventDefault();
         if (error === "no problem") {
-            const types = selectType.split(".");
+            var types = "";
+            types = selectType.split(".");
             setItem([
-                ...item, {id: nextId(), type: types[0], subtype: types[1], detail: detail, cash: parseInt(amout)}
+                ...item, {id: Math.random()*1000, type: types[0], subtype: types[1], detail: detail, cash: parseInt(amout)}
             ])
         }
     }
@@ -91,13 +118,18 @@ const Add = ({item, setItem}) => {
                 <button className="rounded" type="submit" onClick={addItem}>přidat</button>
             </form>
             <div className="preview pt-3">
-                <p className="text-center">
-                    chyba: {error} 
-                    <span className="custom-control custom-checkbox btn text-white-50">
-                        <input id="showHelp" type="checkbox" className="custom-control-input" onChange={(e)=>{setShowHelp(!showHelp)}} value={showHelp} />
-                        <label htmlFor="showHelp" className="custom-control-label">show help</label>
+                <div className="text-center">
+                    <span className="text-danger">
+                        chyba: {error} 
                     </span>
-                </p>
+                    <span className="btn text-white-50">
+                        <label className="switch">
+                            <input type="checkbox" id="showHelp" onChange={(e)=>{setShowHelp(!showHelp)}} value={showHelp} ></input>
+                            <span className="slider round"></span>
+                        </label>
+                        <p>show help</p>
+                    </span>
+                </div>
                 <p>{info}</p>
             </div>
         </div>
