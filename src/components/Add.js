@@ -7,7 +7,8 @@ const Add = ({item, setItem}) => {
     const [detail, setDetail] = useState("");
     const [error, setError] = useState("no problem");
     const [info, setInfo] = useState("");
-    const [showHelp, setShowHelp] = useState(false)
+    const [showHelp, setShowHelp] = useState(false);
+    const [autoComplete, setAutoComplete] = useState(false);
 
     useEffect(()=>{
         if(detail === "" && (amout === "" || parseInt(amout) === 0 || isNaN(parseInt(amout)))){
@@ -57,7 +58,8 @@ const Add = ({item, setItem}) => {
         }
     }, [selectType, showHelp])
     useEffect(()=>{
-        if(detail.length <= 5){
+        document.getElementById("typeSelector").disabled = autoComplete;
+        if(autoComplete){
             if(detail.includes("akci") || detail.includes("dluh") || detail.includes("cenn") || detail.includes("pap")){
                 setSelectType("")
             }else if(detail.includes("pohl")){
@@ -82,8 +84,9 @@ const Add = ({item, setItem}) => {
                 setSelectType("km.zasoby");
             }
         }
-    }, [detail, amout])
+    }, [detail, amout, autoComplete])
     const addItem = (e) => {
+        e.preventDefault();
         if (error === "no problem") {
             var types = "";
             types = selectType.split(".");
@@ -94,40 +97,66 @@ const Add = ({item, setItem}) => {
     }
     return (
         <div>
-            <form>
-                {/* pridat moznost generovani listu pomoci pole */}
-                <select className="p-1 rounded" value={selectType} onChange={(e)=>{setSelectType(e.target.value)}}>
-                    {/* podkategorie */}
-                    {/* dlouhodoby majetek = dm */}
-                    <option className="bg-secondary" value="dm.hmotne">Predmet</option>
-                    <option className="bg-secondary" value="dm.nehmotne">Licence</option>
-                    <option className="bg-secondary" value="dm.cenniny">Cenniny</option>
-                    {/* kratkodoby majetek = km */}
-                    <option className="bg-success" value="km.zasoby">Zasoby</option>
-                    <option className="bg-success" value="km.pohledavky">Pohledavky</option>
-                    <option className="bg-success" value="km.financi">Finanční</option>
-                    {/* vlastni zdroje = vz */}
-                    <option value="vz.hv">Hospodarsky vysledek</option>
-                    <option value="vz.fond">Fondy</option>
-                    {/* cizi zdroje = cz */}
-                    <option className="bg-danger" value="cz.zavazky">Ostatní závazky</option>
-                    <option className="bg-danger" value="cz.uvery">Uvěry</option>
-                </select>
-                <input className="rounded" type="text" placeholder="Nazev, který se zobrazí" value={detail} onChange={(e)=>(setDetail(e.target.value))} />
-                <input min='0' className="rounded" type="number" placeholder="Enter amout" value={amout} onChange={(e)=>{setAmout(e.target.value)}} />
-                <button className="rounded" type="submit" onClick={addItem}>přidat</button>
-            </form>
-            <div className="preview pt-3">
-                <div className="text-center">
-                    <span className="text-danger">
-                        chyba: {error} 
-                    </span>
+            <div className="row">
+                <form className="pl-5 col d-flex flex-column">
+                    {/* pridat moznost generovani listu pomoci pole */}
+                    <select className="p-1 mb-3 rounded" value={selectType} onChange={(e)=>{setSelectType(e.target.value)}} id="typeSelector">
+                        {/* podkategorie */}
+                        {/* dlouhodoby majetek = dm */}
+                        <option className="bg-secondary" value="dm.hmotne">Predmet</option>
+                        <option className="bg-secondary" value="dm.nehmotne">Licence</option>
+                        <option className="bg-secondary" value="dm.cenniny">Cenniny</option>
+                        {/* kratkodoby majetek = km */}
+                        <option className="bg-success" value="km.zasoby">Zasoby</option>
+                        <option className="bg-success" value="km.pohledavky">Pohledavky</option>
+                        <option className="bg-success" value="km.financi">Finanční</option>
+                        {/* vlastni zdroje = vz */}
+                        <option value="vz.hv">vysledek</option>
+                        <option value="vz.fond">Fondy</option>
+                        {/* cizi zdroje = cz */}
+                        <option className="bg-danger" value="cz.zavazky">závazky</option>
+                        <option className="bg-danger" value="cz.uvery">Uvěry</option>
+                    </select>
+                    {/* input display information */}
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">Nazev zauctovani:</span>
+                        </div>
+                        <input className="form-control" type="text" placeholder="Nazev, který se zobrazí" value={detail} onChange={(e)=>(setDetail(e.target.value))} />
+                    </div>
+                    {/* input numeric */}
+                    <div class="input-group mb-3 d-flex">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input min='0' className="rounded flex-fill" type="number" placeholder="Enter amout" value={amout} onChange={(e)=>{setAmout(e.target.value)}} />
+                        <div class="input-group-append">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                    </div>
+                    <button className="btn btn-primary" type="submit" onClick={addItem}>přidat</button>
+                </form>
+                <div className="toggle col">
                     <span className="btn text-white-50">
                         <label className="switch">
                             <input type="checkbox" id="showHelp" onChange={(e)=>{setShowHelp(!showHelp)}} value={showHelp} ></input>
                             <span className="slider round"></span>
                         </label>
-                        <p>show help</p>
+                        <p>Napoveda</p>
+                    </span>
+                    <span className="btn text-white-50">
+                        <label className="switch">
+                            <input type="checkbox" id="showHelp" onChange={(e)=>{setAutoComplete(!autoComplete)}} value={autoComplete} ></input>
+                            <span className="slider round"></span>
+                        </label>
+                        <p>Automaticky vyplnit</p>
+                    </span>
+                </div>
+            </div>
+            <div className="preview pt-3">
+                <div className="text-center">
+                    <span className="text-danger">
+                        {error !== "no problem"? "chyba: "+error: "" }
                     </span>
                 </div>
                 <p>{info}</p>
